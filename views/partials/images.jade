@@ -1,0 +1,11 @@
+h4 Images
+
+table(class='table')
+	tr
+		th Repository
+		th Id
+		th Tag
+	tr(ng-repeat='image in model')
+		td {{image.Repository}}
+		td {{image.Id}}
+		td {{image.Tag}}

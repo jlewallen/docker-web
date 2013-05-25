@@ -1,0 +1,13 @@
+h4 Containers
+
+table(class='table')
+	tr
+		th ID
+		th Image
+		th Status
+		th Command
+	tr(ng-repeat='container in model')
+		td {{container.Id}}
+		td {{container.Image}}
+		td {{container.Status}}
+		td {{container.Command}}

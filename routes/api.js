@@ -1,9 +1,17 @@
-/*
- * Serve JSON to our AngularJS client
+/**
+ *
  */
+var http = require("http");
+var docker = require("./docker");
 
-exports.name = function (req, res) {
-  res.json({
-  	name: 'Bob'
+exports.images = function(req, response) {
+  docker.images(function(body) {
+    response.json(body);
+  });
+};
+
+exports.containers = function(req, response) {
+  docker.containers(function(body) {
+    response.json(body);
   });
 };
