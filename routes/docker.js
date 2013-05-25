@@ -43,10 +43,22 @@ exports.images = function(callback) {
   docker.get("/images/json", callback);
 };
 
+exports.image = function(id, callback) {
+  docker.get("/images/" + id + "/json", callback);
+};
+
 exports.containers = function(callback) {
   docker.get("/containers/ps?all=1", callback);
 };
 
 exports.container = function(id, callback) {
   docker.get("/containers/" + id + "/json", callback);
+};
+
+exports.startContainer = function(id, callback) {
+  docker.post("/containers/" + id + "/start", callback);
+};
+
+exports.stopContainer = function(id, callback) {
+  docker.post("/containers/" + id + "/stop", callback);
 };

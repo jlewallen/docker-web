@@ -13,12 +13,18 @@ function ImagesCtrl($scope, $http) {
   });
 }
 
-
 function ContainersCtrl($scope, $http) {
   $scope.model = null;
   $http.get('/api/containers').success(function(data) {
     $scope.model = _.map(data, function(container) {
       return _.extend(container, { });
     });
+  });
+}
+
+function ContainerCtrl($scope, $http, $routeParams) {
+  $scope.model = null;
+  $http.get('/api/containers/' + $routeParams.id).success(function(data) {
+    $scope.model = data;
   });
 }

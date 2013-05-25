@@ -1,0 +1,26 @@
+h4 Container
+
+div(ng-show='model.state.running',class='alert alert-success') Running
+div(ng-hide='model.state.running',class='alert alert-error') Stopped
+
+
+table(class='table')
+	tr
+		th ID
+		td {{model.id | dockerId}}
+	tr(ng-show='model.state.running')
+		th Network
+		td {{model.networkSettings.ipAddress}}
+	tr
+		th Path
+		td {{model.path}}
+	tr
+		th Created
+		td {{model.created}}
+	tr
+		th Started
+		td {{model.state.startedAt}}
+	tr
+		th Image
+		td
+			a(href='/images/{{model.image}}') {{model.image | dockerId}}
