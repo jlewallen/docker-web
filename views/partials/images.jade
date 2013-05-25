@@ -6,6 +6,6 @@ table(class='table')
 		th Id
 		th Tag
 	tr(ng-repeat='image in model')
-		td {{image.Repository}}
-		td {{image.Id}}
-		td {{image.Tag}}
+		td {{image.repository}}
+		td {{image.id | dockerId}}
+		td {{image.tag}}

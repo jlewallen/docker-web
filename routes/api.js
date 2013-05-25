@@ -15,3 +15,9 @@ exports.containers = function(req, response) {
     response.json(body);
   });
 };
+
+exports.container = function(req, response) {
+  docker.container(req.params.id, function(body) {
+    response.json(body);
+  });
+};

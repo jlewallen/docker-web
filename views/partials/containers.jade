@@ -7,7 +7,7 @@ table(class='table')
 		th Status
 		th Command
 	tr(ng-repeat='container in model')
-		td {{container.Id}}
-		td {{container.Image}}
-		td {{container.Status}}
-		td {{container.Command}}
+		td {{container.id | dockerId}}
+		td {{container.image}}
+		td {{container.status}}
+		td {{container.command}}

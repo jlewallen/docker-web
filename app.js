@@ -37,6 +37,7 @@ app.get('/partials/:name', routes.partials);
 
 app.get('/api/images', api.images);
 app.get('/api/containers', api.containers);
+app.get('/api/containers/:id', api.container);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
