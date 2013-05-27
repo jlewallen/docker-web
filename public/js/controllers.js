@@ -57,3 +57,10 @@ function ImageCtrl($scope, $http, $routeParams) {
     $scope.model = data;
   });
 }
+
+function AboutCtrl($scope, $http) {
+  $scope.model = null;
+  $http.get('/api/info').success(function(data) {
+    $scope.model = data;
+  });
+}

@@ -82,3 +82,7 @@ exports.stopContainer = function(id, callback) {
 exports.removeContainer = function(id, callback) {
   docker.del("/containers/" + id, false, callback);
 };
+
+exports.info = function(callback) {
+  docker.get('/info', true, callback);
+};

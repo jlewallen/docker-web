@@ -3,6 +3,7 @@
  */
 var http = require("http");
 var docker = require("./docker");
+var _ = require("../public/js/lib/underscore");
 
 exports.images = function(req, response) {
   docker.images(function(body) {
@@ -49,5 +50,11 @@ exports.restartContainer = function(req, response) {
 exports.removeContainer = function(req, response) {
   docker.removeContainer(req.params.id, function(body) {
     response.json(body);
+  });
+};
+
+exports.info = function(req, response) {
+  docker.info(function(body) {
+    response.json(_.extend({ }, { docker: body }));
   });
 };
