@@ -37,6 +37,7 @@ app.get('/partials/:name', routes.partials);
 
 app.get('/api/info', api.info);
 app.get('/api/images', api.images);
+app.post('/api/images/search', api.searchImages);
 app.get('/api/images/:id', api.image);
 app.get('/api/containers', api.containers);
 app.get('/api/containers/:id', api.container);

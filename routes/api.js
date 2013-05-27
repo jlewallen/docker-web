@@ -58,3 +58,9 @@ exports.info = function(req, response) {
     response.json(_.extend({ }, { docker: body }));
   });
 };
+
+exports.searchImages = function(req, response) {
+  docker.searchImages(req.body.term, function(body) {
+    response.json(body);
+  });
+};

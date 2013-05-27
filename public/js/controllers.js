@@ -64,3 +64,12 @@ function AboutCtrl($scope, $http) {
     $scope.model = data;
   });
 }
+
+function SearchCtrl($scope, $http) {
+  $scope.model = null;
+  $scope.search = function() {
+    $http.post('/api/images/search', { term: $scope.term }).success(function(data) {
+      $scope.model = data;
+    });
+  };
+}

@@ -1,6 +1,20 @@
 h4 Images
 
-table(class='table')
+div(ng-controller="SearchCtrl")
+	form(class="form-search",ng-submit="search()")
+		fieldset
+			input(name='term',placeholder='Search',class='input-medium search-query',ng-model="term")
+			button(class='btn') Search
+	div(ng-show='model')
+		table.table
+			tr
+				th Image
+				th Description
+			tr(ng-repeat='row in model')
+				td {{row.name}}
+				td {{row.description}}
+
+table.table
 	tr
 		th Repository
 		th Id

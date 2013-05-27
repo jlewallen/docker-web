@@ -86,3 +86,7 @@ exports.removeContainer = function(id, callback) {
 exports.info = function(callback) {
   docker.get('/info', true, callback);
 };
+
+exports.searchImages = function(term, callback) {
+  docker.get('/images/search?term=' + term, true, callback);
+};
