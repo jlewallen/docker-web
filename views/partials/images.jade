@@ -6,6 +6,7 @@ table(class='table')
 		th Id
 		th Tag
 	tr(ng-repeat='image in model')
+		td
+			a(href='/images/{{image.id}}') {{image.id | dockerId}}
 		td {{image.repository}}
-		td {{image.id | dockerId}}
 		td {{image.tag}}

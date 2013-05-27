@@ -1,0 +1,17 @@
+h4(ng-show="model.container_config.image") {{model.container_config.image}}
+h4(ng-hide="model.container_config.image") Image
+
+table(class='table')
+	tr
+		th ID
+		td {{model.id | dockerId}}
+	tr(ng-show='model.parent')
+		th Parent
+		td
+			a(href='/images/{{model.parent}}') {{model.parent | dockerId}}
+	tr
+		th Created
+		td {{model.created}}
+	tr
+		th Command
+		td {{model.container_config.cmd}}

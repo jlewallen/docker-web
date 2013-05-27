@@ -18,47 +18,67 @@ function reformat(json) {
 }
 
 function Docker() {
-  var options = {
+  var globalOptions = {
     host: '192.168.0.127',
     port: '4243',
   };
 
-  this.get = function(path, end) {
-    http.get(_.extend({ path: path }, options), function(res) {
+  function call(options, returnsJson, end) {
+    http.request(_.extend(options, globalOptions), function(res) {
       var body = "";
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
         body += chunk;
       });
       res.on('end', function(){
-        end(reformat(JSON.parse(body)));
+        end(returnsJson ? reformat(JSON.parse(body)) : body);
       });
-    });
-  }
+    }).end();
+  };
+
+  this.get = function(path, returnsJson, end) {
+    call({ path: path, method: 'GET' }, returnsJson, end);
+  };
+
+  this.post = function(path, returnsJson, end) {
+    call({ path: path, method: 'POST' }, returnsJson, end);
+  };
+
+  this.del = function(path, returnsJson, end) {
+    call({ path: path, method: 'DELETE' }, returnsJson, end);
+  };
 }
 
 var docker = new Docker();
 
 exports.images = function(callback) {
-  docker.get("/images/json", callback);
+  docker.get("/images/json", true, callback);
 };
 
 exports.image = function(id, callback) {
-  docker.get("/images/" + id + "/json", callback);
+  docker.get("/images/" + id + "/json", true, callback);
 };
 
 exports.containers = function(callback) {
-  docker.get("/containers/ps?all=1", callback);
+  docker.get("/containers/ps?all=1", true, callback);
 };
 
 exports.container = function(id, callback) {
-  docker.get("/containers/" + id + "/json", callback);
+  docker.get("/containers/" + id + "/json", true, callback);
+};
+
+exports.restartContainer = function(id, callback) {
+  docker.post("/containers/" + id + "/restart", false, callback);
 };
 
 exports.startContainer = function(id, callback) {
-  docker.post("/containers/" + id + "/start", callback);
+  docker.post("/containers/" + id + "/start", false, callback);
 };
 
 exports.stopContainer = function(id, callback) {
-  docker.post("/containers/" + id + "/stop", callback);
+  docker.post("/containers/" + id + "/stop", false, callback);
+};
+
+exports.removeContainer = function(id, callback) {
+  docker.del("/containers/" + id, false, callback);
 };

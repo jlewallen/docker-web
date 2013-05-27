@@ -36,8 +36,13 @@ app.get('/partials/:name', routes.partials);
 // JSON API
 
 app.get('/api/images', api.images);
+app.get('/api/images/:id', api.image);
 app.get('/api/containers', api.containers);
 app.get('/api/containers/:id', api.container);
+app.post('/api/containers/:id/start', api.startContainer);
+app.post('/api/containers/:id/stop', api.stopContainer);
+app.post('/api/containers/:id/restart', api.restartContainer);
+app.post('/api/containers/:id/remove', api.removeContainer);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
