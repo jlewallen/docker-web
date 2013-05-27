@@ -3,7 +3,7 @@ h4 Images
 div(ng-controller="SearchCtrl")
 	form(class="form-search",ng-submit="search()")
 		fieldset
-			input(name='term',placeholder='Search',class='input-medium search-query',ng-model="term")
+			input(type='text',name='term',placeholder='Search',class='input-medium search-query',ng-model="term")
 			button(class='btn') Search
 	div(ng-show='model')
 		table.table
