@@ -3,7 +3,7 @@
 angular.module('dockerApp.filters', []).
   filter('dockerId', function() {
     return function(text) {
-      return text.substring(0, 12);
+      return (text || '').substring(0, 12);
     }
   }).
   filter('interpolate', ['version', function(version) {
