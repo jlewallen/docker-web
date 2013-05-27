@@ -1,5 +1,6 @@
 var http = require("http");
 var _ = require("../public/js/lib/underscore");
+var configuration = require("../config.js").docker;
 
 function reformat(json) {
   if (_.isArray(json)) {
@@ -18,13 +19,8 @@ function reformat(json) {
 }
 
 function Docker() {
-  var globalOptions = {
-    host: '192.168.0.127',
-    port: '4243',
-  };
-
   function call(options, returnsJson, end) {
-    http.request(_.extend(options, globalOptions), function(res) {
+    http.request(_.extend(options, configuration), function(res) {
       var body = "";
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
