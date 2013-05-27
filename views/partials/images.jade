@@ -5,8 +5,10 @@ table(class='table')
 		th Repository
 		th Id
 		th Tag
+		th Created
 	tr(ng-repeat='image in model')
 		td
 			a(href='/images/{{image.id}}') {{image.id | dockerId}}
 		td {{image.repository}}
 		td {{image.tag}}
+		td {{image.created | momentAgo}}

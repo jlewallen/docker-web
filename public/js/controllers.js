@@ -8,7 +8,7 @@ function ImagesCtrl($scope, $http) {
   $scope.model = null;
   $http.get('/api/images').success(function(data) {
     $scope.model = _.map(data, function(image) {
-      return _.extend(image, { });
+      return _.extend(image, { created: image.created * 1000 });
     });
   });
 }
@@ -17,7 +17,7 @@ function ContainersCtrl($scope, $http) {
   $scope.model = null;
   $http.get('/api/containers').success(function(data) {
     $scope.model = _.map(data, function(container) {
-      return _.extend(container, { });
+      return _.extend(container, { created: container.created * 1000 });
     });
   });
 }
@@ -27,10 +27,10 @@ function ContainerCtrl($scope, $http, $routeParams) {
   $http.get('/api/containers/' + $routeParams.id).success(function(data) {
     $scope.model = data;
   });
-
   function call(url) {
+    $scope.busy = true;
     $http.post(url).success(function(data) {
-      console.log("HI");
+      $scope.busy = false;
     });
   };
 

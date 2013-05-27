@@ -11,7 +11,7 @@ table(class='table')
 			a(href='/images/{{model.parent}}') {{model.parent | dockerId}}
 	tr
 		th Created
-		td {{model.created}}
+		td {{model.created | dateAndTime}}
 	tr
 		th Command
 		td {{model.container_config.cmd}}

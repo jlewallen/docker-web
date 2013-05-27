@@ -6,6 +6,16 @@ angular.module('dockerApp.filters', []).
       return (text || '').substring(0, 12);
     }
   }).
+  filter('momentAgo', function() {
+    return function(text) {
+      return moment(text).fromNow();
+    }
+  }).
+  filter('dateAndTime', function() {
+    return function(text) {
+      return moment(text).format('LLL');
+    }
+  }).
   filter('interpolate', ['version', function(version) {
     return function(text) {
       return String(text).replace(/\%VERSION\%/mg, version);

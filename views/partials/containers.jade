@@ -6,9 +6,11 @@ table(class='table')
 		th Image
 		th Status
 		th Command
+		th Created
 	tr(ng-repeat='container in model')
 		td
 			a(href='/containers/{{container.id}}') {{container.id | dockerId}}
 		td {{container.image}}
 		td {{container.status}}
 		td {{container.command}}
+		td {{container.created | momentAgo}}

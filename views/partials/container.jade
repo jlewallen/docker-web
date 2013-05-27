@@ -1,32 +1,34 @@
 h4 Container
 
-div(ng-show='model.state.running',class='alert alert-success') Running
+div(ng-show='model.state.running')
+	div(class='alert alert-success') Running
 	div
-		a(class="btn",ng-click="stop()",href="javascript:void(0);") Stop
-		a(class="btn",ng-click="restart()",href="javascript:void(0);") Restart
+		a(class="btn btn-danger",ng-click="stop()",href="javascript:void(0);") Stop
+		a(class="btn btn-danger",ng-click="restart()",href="javascript:void(0);") Restart
 
-div(ng-hide='model.state.running',class='alert alert-error') Stopped
+div(ng-hide='model.state.running')
+	div(class='alert alert-error') Stopped
 	div
 		a(class="btn",ng-click="start()",href="javascript:void(0);") Start
-		a(class="btn",ng-click="remove()",href="javascript:void(0);") Remove
+		a(class="btn btn-danger",ng-click="remove()",href="javascript:void(0);") Remove
 
 table(class='table')
 	tr
 		th ID
 		td {{model.id | dockerId}}
-	tr(ng-show='model.state.running')
-		th Network
-		td {{model.networkSettings.ipAddress}}
-	tr(ng-show='model.state.running')
-		th Started
-		td {{model.state.startedAt}}
-	tr
-		th Path
-		td {{model.path}}
-	tr
-		th Created
-		td {{model.created}}
 	tr
 		th Image
 		td
 			a(href='/images/{{model.image}}') {{model.image | dockerId}}
+	tr(ng-show='model.state.running')
+		th Network
+		td {{model.networkSettings.ipAddress}}
+	tr
+		th Path
+		td {{model.path}}
+	tr(ng-show='model.state.running')
+		th Started
+		td {{model.state.startedAt | dateAndTime}}
+	tr
+		th Created
+		td {{model.created | dateAndTime}}
