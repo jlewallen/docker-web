@@ -24,13 +24,20 @@ function ContainersCtrl($scope, $http) {
 
 function ContainerCtrl($scope, $http, $routeParams, $location) {
   $scope.model = null;
-  $http.get('/api/containers/' + $routeParams.id).success(function(data) {
-    $scope.model = data;
-  });
+
+  $scope.refresh = function() {
+    $scope.busy = true;
+    $http.get('/api/containers/' + $routeParams.id).success(function(data) {
+      $scope.busy = false;
+      $scope.model = data;
+    });
+  };
+
   function call(url) {
     $scope.busy = true;
     return $http.post(url).success(function(data) {
       $scope.busy = false;
+      $scope.refresh();
     });
   };
 
@@ -59,6 +66,7 @@ function ContainerCtrl($scope, $http, $routeParams, $location) {
       $scope.model.logs = data;
     });
   };
+  $scope.refresh();
 }
 
 function ImageCtrl($scope, $http, $routeParams, $location) {
