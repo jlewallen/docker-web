@@ -39,12 +39,14 @@ app.get('/api/info', api.info);
 app.get('/api/images', api.images);
 app.post('/api/images/search', api.searchImages);
 app.get('/api/images/:id', api.image);
+app.post('/api/images/:id/create-container', api.createContainerFromImage);
 app.get('/api/containers', api.containers);
 app.get('/api/containers/:id', api.container);
 app.post('/api/containers/:id/start', api.startContainer);
 app.post('/api/containers/:id/stop', api.stopContainer);
 app.post('/api/containers/:id/restart', api.restartContainer);
 app.post('/api/containers/:id/remove', api.removeContainer);
+app.get('/api/containers/:id/logs', api.containerLogs);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

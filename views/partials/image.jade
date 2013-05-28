@@ -1,17 +1,24 @@
-h4(ng-show="model.container_config.image") {{model.container_config.image}}
-h4(ng-hide="model.container_config.image") Image
+div(ng-controller="ImageCtrl")
+	h4(ng-show="model.container_config.image") {{model.container_config.image}}
+	h4(ng-hide="model.container_config.image") Image
+	table(class='table')
+		tr
+			th ID
+			td {{model.id | dockerId}}
+		tr(ng-show='model.parent')
+			th Parent
+			td
+				a(href='/images/{{model.parent}}') {{model.parent | dockerId}}
+		tr
+			th Created
+			td {{model.created | dateAndTime}}
+		tr
+			th Command
+			td {{model.container_config.cmd}}
 
-table(class='table')
-	tr
-		th ID
-		td {{model.id | dockerId}}
-	tr(ng-show='model.parent')
-		th Parent
-		td
-			a(href='/images/{{model.parent}}') {{model.parent | dockerId}}
-	tr
-		th Created
-		td {{model.created | dateAndTime}}
-	tr
-		th Command
-		td {{model.container_config.cmd}}
+div
+	form.form-inline(ng-controller="CreateContainerCtrl")
+		fieldset
+			INPUT(type='text',ng-model="command",placeholder="Command")
+			a.btn.btn-primary(ng-click='createContainer()') Create Container
+	

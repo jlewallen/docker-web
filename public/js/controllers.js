@@ -22,14 +22,14 @@ function ContainersCtrl($scope, $http) {
   });
 }
 
-function ContainerCtrl($scope, $http, $routeParams) {
+function ContainerCtrl($scope, $http, $routeParams, $location) {
   $scope.model = null;
   $http.get('/api/containers/' + $routeParams.id).success(function(data) {
     $scope.model = data;
   });
   function call(url) {
     $scope.busy = true;
-    $http.post(url).success(function(data) {
+    return $http.post(url).success(function(data) {
       $scope.busy = false;
     });
   };
@@ -47,15 +47,37 @@ function ContainerCtrl($scope, $http, $routeParams) {
   };
 
   $scope.remove = function() {
-    call('/api/containers/' + $routeParams.id + '/remove');
+    call('/api/containers/' + $routeParams.id + '/remove').success(function() {
+      $location.path("/containers");
+    });
+  };
+
+  $scope.showLogs = function() {
+    $scope.busy = true;
+    return $http.get('/api/containers/' + $routeParams.id + '/logs').success(function(data) {
+      $scope.busy = false;
+      $scope.model.logs = data;
+    });
   };
 }
 
-function ImageCtrl($scope, $http, $routeParams) {
+function ImageCtrl($scope, $http, $routeParams, $location) {
   $scope.model = null;
   $http.get('/api/images/' + $routeParams.id).success(function(data) {
     $scope.model = data;
   });
+
+  $scope.createContainer = function() {
+    $scope.busy = true;
+    $http.post('/api/images/' + $routeParams.id + '/create-container').success(function(data) {
+      $scope.busy = false;
+      $location.path("/containers/" + data.id);
+    });
+  };
+}
+
+function CreateContainerCtrl($scope, $http) {
+  $scope = model;
 }
 
 function AboutCtrl($scope, $http) {

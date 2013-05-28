@@ -64,3 +64,16 @@ exports.searchImages = function(req, response) {
     response.json(body);
   });
 };
+
+exports.createContainerFromImage = function(req, response) {
+  docker.createContainerFromImage(req.params.id, req.body, function(body) {
+    response.json(body);
+  });
+};
+
+exports.containerLogs = function(req, response) {
+  docker.containerLogs(req.params.id, function(body) {
+    response.write(body);
+    response.end();
+  });
+};

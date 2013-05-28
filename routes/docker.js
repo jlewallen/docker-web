@@ -20,7 +20,7 @@ function reformat(json) {
 
 function Docker() {
   function call(options, returnsJson, end) {
-    http.request(_.extend(options, configuration), function(res) {
+    return http.request(_.extend(options, configuration), function(res) {
       var body = "";
       res.setEncoding('utf8');
       res.on('data', function (chunk) {
@@ -29,19 +29,23 @@ function Docker() {
       res.on('end', function(){
         end(returnsJson ? reformat(JSON.parse(body)) : body);
       });
-    }).end();
+    });
   };
 
   this.get = function(path, returnsJson, end) {
-    call({ path: path, method: 'GET' }, returnsJson, end);
+    call({ path: path, method: 'GET' }, returnsJson, end).end();
   };
 
-  this.post = function(path, returnsJson, end) {
-    call({ path: path, method: 'POST' }, returnsJson, end);
+  this.post = function(path, returnsJson, end, body) {
+    var req = call({ path: path, method: 'POST' }, returnsJson, end);
+    if (body) {
+      req.write(JSON.stringify(body));
+    }
+    req.end();
   };
 
   this.del = function(path, returnsJson, end) {
-    call({ path: path, method: 'DELETE' }, returnsJson, end);
+    call({ path: path, method: 'DELETE' }, returnsJson, end).end();
   };
 }
 
@@ -85,4 +89,33 @@ exports.info = function(callback) {
 
 exports.searchImages = function(term, callback) {
   docker.get('/images/search?term=' + term, true, callback);
+};
+
+exports.createContainerFromImage = function(id, settings, callback) {
+  var container = {
+     "Hostname": "",
+     "User": "",
+     "Memory": 0,
+     "MemorySwap": 0,
+     "AttachStdin": false,
+     "AttachStdout": true,
+     "AttachStderr": true,
+     "PortSpecs": null,
+     "Tty": false,
+     "OpenStdin": false,
+     "StdinOnce": false,
+     "Env": null,
+     "Cmd":[
+             "date"
+     ],
+     "Dns": null,
+     "Image": id,
+     "Volumes": {},
+     "VolumesFrom": ""
+  };
+  docker.post("/containers/create", true, callback, container);
+};
+
+exports.containerLogs = function(id, callback) {
+  docker.post("/containers/" + id + "/attach?logs=1&stream=0&stdout=1&stderr=1", false, callback);
 };

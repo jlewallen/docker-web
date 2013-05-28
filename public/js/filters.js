@@ -8,12 +8,12 @@ angular.module('dockerApp.filters', []).
   }).
   filter('momentAgo', function() {
     return function(text) {
-      return moment(text).fromNow();
+      return text == null ? '' : moment(text).fromNow();
     }
   }).
   filter('dateAndTime', function() {
     return function(text) {
-      return moment(text).format('LLL');
+      return text == null ? '' : moment(text).format('LLL');
     }
   }).
   filter('interpolate', ['version', function(version) {

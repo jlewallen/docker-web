@@ -32,3 +32,8 @@ table(class='table')
 	tr
 		th Created
 		td {{model.created | dateAndTime}}
+
+div
+	div
+		a.btn(ng-click="showLogs()",href="javascript:void(0);") Logs
+	pre {{model.logs}}

@@ -36,3 +36,8 @@ html {
 body {
   padding-top: 60px;
 }
+
+pre {
+  font-size: 12px;
+  border: none;
+}
